@@ -3,9 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule,AuthProviders, AuthMethods } from 'angularfire2';
+import { MaterialModule } from '@angular/material';
+
 
 import { AppComponent } from './app.component';
-
+import { LoginComponent } from './login.component';
+import { PollComponent } from './poll.component';
+import {routing} from './app.routes';
 
 const myFirebaseConfig = {
   apiKey: "AIzaSyAseOIvCZT4xxGDVyIO2g35s0bj9F4EhpE",
@@ -21,13 +25,17 @@ const myFirebaseAuthConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    PollComponent
   ],
   imports: [
+    routing,
     BrowserModule,
     FormsModule,
     HttpModule,
     AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig),
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
