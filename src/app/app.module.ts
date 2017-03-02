@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login.component';
 import { PollComponent } from './poll.component';
 import {routing} from './app.routes';
+import { LoggedInGuard } from './logged-in.guard';
+import { UserService } from './user.service';
 
 const myFirebaseConfig = {
   apiKey: "AIzaSyAseOIvCZT4xxGDVyIO2g35s0bj9F4EhpE",
@@ -37,7 +39,7 @@ const myFirebaseAuthConfig = {
     AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig),
     MaterialModule
   ],
-  providers: [],
+  providers: [LoggedInGuard, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
