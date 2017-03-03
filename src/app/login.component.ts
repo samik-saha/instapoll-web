@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AngularFire, AuthProviders} from 'angularfire2';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './login.component.html',
@@ -9,12 +10,16 @@ export class LoginComponent {
     isAuth = false;
     authColor = 'warn';
     user = {};
+    returnUrl: string;
 
-    constructor(public af: AngularFire) {
+    constructor( private route: ActivatedRoute,
+        private router: Router, public af: AngularFire) {
         this.af.auth.subscribe(
             user => this._changeState(user),
             error => console.trace(error)
         );
+
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     login(from: string) {
@@ -32,6 +37,8 @@ export class LoginComponent {
             this.isAuth = true;
             this.authColor = 'primary';
             this.user = this._getUserInfo(user)
+            if (this.returnUrl != '/')
+                this.router.navigate([this.returnUrl]);
         }
         else {
             this.isAuth = false;
